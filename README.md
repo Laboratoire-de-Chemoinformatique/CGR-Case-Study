@@ -1,0 +1,65 @@
+# Modelling Suzuki Reactions with CGRs
+
+## Environment
+To set up the 3 environments needed, run: 
+```bash
+make create_environments
+```
+
+This will set up the 3 required environments: 
+- `cgr-frag` for the creation of the CGR-fragments
+- `ml-env` for the 'standard' ML (GBM, kNN and RF)
+- `dl-env` for ChemProp and the Multi-Task Neural Networks
+
+## Dataset
+Imported with the repository is a .txt file containing the reactions from the JACS 2022 paper, stored in `jacs_data_extraction_scripts/dataset/suzuki_USPTO_with_hetearomatic.txt`
+
+The data is already stored in `data/parsed_jacs_data/splits`, where the data for each repetition and fold is stored. 
+
+If you want to re-create the dataset, run:
+```bash
+make_jacs_dataset_and_frags.sh
+```
+Which will parse the reactions, atom-map them, drop duplicates and fragment the CGRs. 
+
+## Modelling
+Optimised hyperparameter configurations can be found in the `hpopt/coarse_solvs` folder, with config files for the RF, GBM, D-MPNN and CGR-MTNN models.
+
+Complete configs, with the full range of options for the models, can be found in the `configs` folder. Both the MorganFP and CGR-MTNN were build with PyTorch Lightning, and can be run from the command line via: 
+```bash
+python src/modelling/multitask_nn.py {fit/test} -c {config_file}
+```
+To reproduce the results of the paper (without reoptimising the hyperparameters), run: 
+```bash
+test_all_models_cpu.sh -s coarse
+```
+Which will train and test all models without-GPU acceleration (i.e. Pop. Baseline, Sim. Baseline and RF) on the coarse solvent classes. Then run: 
+```bash
+test_all_models_gpu.sh -s coarse
+```
+Which will train and test all models that use GPU acceleration (i.e. CGR GBM, CGR MTNN, Morgan MTNN and CGR D-MPNN).
+
+Repeat for the 'fine' solvent classification. Since we optimised the hyperparameters on the 'coarse' solvent classes, use:
+```bash
+test_all_models_cpu.sh -s fine -c 
+test_all_models_cpu.sh -s fine -c 
+```
+Where the `-c` indicates that we are using the `coarse` hyperparameters.
+
+[Note that this requires the `hpopt` folder to contain the optimised hyperparameters for the CGR RF, CGR GBM, CGR D-MPNN models, and the `configs` folder to contain the config files for the CGR MTNN and Morgan MTNN models.]
+
+### (Optional) Hyperparameter Optimisation:
+To re-run the hyperparameter optimisation (very slow): 
+```bash
+hpopt_cpu.sh -s coarse
+```
+To optimise the hyperparameters of the CGR-RF models, and:
+```bash
+hpopt_gpu.sh -s coarse
+```
+
+To optimise the hyperparameters of the CGR GBM, CGR MTNN and CGR D-MPNN. NOTE: This will take over 16 hours on a single GPU.
+
+Optimised configs will be placed in the `hpopt/coarse_solvs` directory. Note that the optimised hyperparameters from the CGR MTNN will need to be copied into the respective config file at `configs/coarse_solvs/cgr_mtnn/split_seed_{split}/.yml`. Similarly at `configs/fine_solvs_coarse_hparams/cgr_mtnn/split_seed_{split}/.yml`.
+
+These configs may look like they have the incorrect arguments in places, but they are overridden when they are used in `src/scripts/test_models_across_splits.py`. 

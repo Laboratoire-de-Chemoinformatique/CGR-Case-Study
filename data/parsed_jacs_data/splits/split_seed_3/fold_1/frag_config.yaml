@@ -1,0 +1,13 @@
+cgr_dynbonds: 0
+frag_type: 9
+input_csv: data/parsed_jacs_data/splits/split_seed_3/fold_1/data.csv
+input_frags: null
+max_frag_length: 4
+min_frag_length: 2
+min_num_occurrences: 5
+n_components: 1500.0
+output_dir: data/parsed_jacs_data/splits/split_seed_3/fold_1
+run_pca: true
+save_add_info: false
+save_raw_frags: false
+use_formal_charge: true

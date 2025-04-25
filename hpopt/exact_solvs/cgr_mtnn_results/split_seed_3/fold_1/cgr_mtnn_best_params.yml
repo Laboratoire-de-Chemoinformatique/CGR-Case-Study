@@ -1,0 +1,5 @@
+activation_fn: ReLU
+dropout_rate: 0.1175232256626532
+learning_rate: 0.0001017955205520879
+n_shared_layers: 1
+shared_layer_size_0: 1024

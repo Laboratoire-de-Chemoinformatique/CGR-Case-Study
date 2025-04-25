@@ -1,0 +1,14 @@
+reagent_type,top_k,accuracy
+coarse_solvent,1,0.44252872
+coarse_solvent,2,0.62068963
+coarse_solvent,3,0.78065133
+coarse_solvent,4,0.9118774
+coarse_solvent,5,0.97605366
+coarse_solvent,6,1.0
+base,1,0.81130266
+base,2,0.8773946
+base,3,0.95019156
+base,4,0.97605366
+base,5,0.9808429
+base,6,0.9904215
+base,7,1.0

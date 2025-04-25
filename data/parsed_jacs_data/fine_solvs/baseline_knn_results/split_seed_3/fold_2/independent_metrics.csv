@@ -1,0 +1,9 @@
+metric_name,value
+fine_solvent_macro_macro_precision,0.3577526958788534
+fine_solvent_macro_macro_recall,0.33227325475302083
+fine_solvent_macro_micro_f1,0.44061302681992337
+fine_solvent_macro_macro_f1,0.336528254119382
+base_macro_macro_precision,0.42481997266995597
+base_macro_macro_recall,0.431693057772792
+base_macro_micro_f1,0.6973180076628352
+base_macro_macro_f1,0.3702231957810051

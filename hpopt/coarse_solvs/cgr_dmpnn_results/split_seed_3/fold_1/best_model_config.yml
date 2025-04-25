@@ -1,0 +1,9 @@
+ffn:
+  dropout: 0.15000000000000002
+  hidden_dim: 1024
+  n_classes: 7
+  n_layers: 2
+  n_tasks: 2
+message_passing:
+  depth: 7
+  dropout: 0.05
