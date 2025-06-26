@@ -43,13 +43,16 @@ format:
 .PHONY: create_environments
 create_environment:
 	conda env create --name cgr-frag -f envs/cgr-frag.yml
-	@echo ">>> conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
+	@echo ">>> conda env created. Activate with:\nconda activate cgr-frag"
 
 	conda env create --name ml-env -f envs/ml-env.yml
-	@echo ">>> conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
+	@echo ">>> conda env created. Activate with:\nconda activate ml-env"
 
 	conda env create --name dl-env -f envs/dl-env.yml
-	@echo ">>> conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
+	@echo ">>> conda env created. Activate with:\nconda activate dl-env"
+	
+	conda env create --name data-analysis -f envs/data-analysis.yml
+	@echo ">>> conda env created. Activate with:\nconda activate data-analysis"
 
 
 #################################################################################
