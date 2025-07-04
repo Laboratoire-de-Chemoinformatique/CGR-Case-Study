@@ -18,10 +18,14 @@ The data is already stored in `data/parsed_jacs_data/splits`, where the data for
 
 The fragments are large (~1.6Gb) so they are not included in the repository. To get the fragments, run:
 ```bash
+conda activate cgr-frag
 
+python src/scripts/generate_frags_for_splits.py --splits_dir data/parsed_jacs_data/splits --n_folds 5 \
+
+conda deactivate
 ```
 
-which will download the fragments and move to their respective locations (split/fold/id_to_frag.pkl).
+which create the fragments under the data/parsed_jacs_data/splits folder (split_{idx}/fold_{idx}/id_to_frag.pkl).
 
 If you want to re-create the dataset, run:
 ```bash
